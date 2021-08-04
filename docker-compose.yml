@@ -12,7 +12,7 @@ services:
     hadoop-master:
         image: leibniz21c/ubuntu-hadoop:2.7.7
         container_name: hadoop-master
-        hostname: hadoop-master
+        hostname: master
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
         ports: 
@@ -46,12 +46,12 @@ services:
             hadoop-slave1: 10.0.2.3
             hadoop-slave2: 10.0.2.4
             hadoop-slave3: 10.0.2.5
-        command: "/etc/bootstrap.sh && start-all.sh $$ /bin/bash"
+        command: "/bin/bash"
 
     hadoop-slave1:
         image: leibniz21c/ubuntu-hadoop:2.7.7
         container_name: hadoop-slave1
-        hostname: hadoop-slave1
+        hostname: slave1
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
         networks: 
@@ -62,12 +62,12 @@ services:
             hadoop-slave1: 10.0.2.3
             hadoop-slave2: 10.0.2.4
             hadoop-slave3: 10.0.2.5
-        command: "/etc/bootstrap.sh $$ /bin/bash"
+        command: "/bin/bash"
 
     hadoop-slave2:
         image: leibniz21c/ubuntu-hadoop:2.7.7
         container_name: hadoop-slave2
-        hostname: hadoop-slave2
+        hostname: slave2
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
         networks: 
@@ -78,12 +78,12 @@ services:
             hadoop-slave1: 10.0.2.3
             hadoop-slave2: 10.0.2.4
             hadoop-slave3: 10.0.2.5
-        command: "/etc/bootstrap.sh $$ /bin/bash"
+        command: "/bin/bash"
 
     hadoop-slave3:
         image: leibniz21c/ubuntu-hadoop:2.7.7
         container_name: hadoop-slave3
-        hostname: hadoop-slave3
+        hostname: slave3
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
         networks: 
@@ -94,7 +94,7 @@ services:
             hadoop-slave1: 10.0.2.3
             hadoop-slave2: 10.0.2.4
             hadoop-slave3: 10.0.2.5
-        command: "/etc/bootstrap.sh $$ /bin/bash"
+        command: "/bin/bash"
 
 networks: 
     hadoop-cluster:

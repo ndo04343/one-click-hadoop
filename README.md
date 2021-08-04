@@ -13,6 +13,8 @@ but since hadoop version 3, there are some change in port informations. <br>
 And I need to use hadoop:2.7.7. <br>
 So I changed something. <br>
 <br>
+
+### 1. Fast start
 Run it in the terminal like this:
 ```
 ./build.sh

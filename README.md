@@ -3,7 +3,7 @@
 ### 0. Overview
 Forked from kmu-bigdata/ubuntu-hadoop.<br>
 Above kmu-bigdata/ubuntu-hadoop use 50070 port and stuff like that, <br>
-but since hadoop version there are some change in port informations. <br>
+but since hadoop version 3, there are some change in port informations. <br>
 <br>
 - Namenode ports: 50470 --> 9871, 50070 --> 9870, 8020 --> 9820
 - Secondary NN ports: 50091 --> 9869, 50090 --> 9868

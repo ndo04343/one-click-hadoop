@@ -1,0 +1,105 @@
+#
+#
+#   If you want to add slave node, 
+#   then just copy and paste following code.
+#   You can do it!
+#
+#   You must modify the ports information of hadoop-master service.
+#
+version: "3"
+
+services: 
+    hadoop-master:
+        image: leibniz21c/ubuntu-hadoop:2.7.7
+        container_name: hadoop-master
+        hostname: hadoop-master
+        stdin_open: true    # docker run -i
+        tty: true           # docker run -t
+        ports: 
+            - "60001:50010"
+            - "60002:50020"
+            - "60003:50070"
+            - "60004:50075"
+            - "60005:50090"
+            - "60006:8020"
+            - "60007:9000"
+            - "60008:10020"
+            - "60009:19888"
+            - "60010:8030"
+            - "60011:8031"
+            - "60012:8032"
+            - "60013:8033"
+            - "60014:8040"
+            - "60015:8042"
+            - "60016:8088"
+            - "60017:49707"
+            - "2122:2122"
+        depends_on: 
+            - hadoop-slave1
+            - hadoop-slave2
+            - hadoop-slave3
+        networks: 
+            hadoop-cluster :
+                ipv4_address: 10.0.2.2
+        extra_hosts:
+            hadoop-master: 10.0.2.2
+            hadoop-slave1: 10.0.2.3
+            hadoop-slave2: 10.0.2.4
+            hadoop-slave3: 10.0.2.5
+        command: "/etc/bootstrap.sh && start-all.sh $$ /bin/bash"
+
+    hadoop-slave1:
+        image: leibniz21c/ubuntu-hadoop:2.7.7
+        container_name: hadoop-slave1
+        hostname: hadoop-slave1
+        stdin_open: true    # docker run -i
+        tty: true           # docker run -t
+        networks: 
+            hadoop-cluster :
+                ipv4_address: 10.0.2.3
+        extra_hosts:
+            hadoop-master: 10.0.2.2
+            hadoop-slave1: 10.0.2.3
+            hadoop-slave2: 10.0.2.4
+            hadoop-slave3: 10.0.2.5
+        command: "/etc/bootstrap.sh $$ /bin/bash"
+
+    hadoop-slave2:
+        image: leibniz21c/ubuntu-hadoop:2.7.7
+        container_name: hadoop-slave2
+        hostname: hadoop-slave2
+        stdin_open: true    # docker run -i
+        tty: true           # docker run -t
+        networks: 
+            hadoop-cluster :
+                ipv4_address: 10.0.2.4
+        extra_hosts:
+            hadoop-master: 10.0.2.2
+            hadoop-slave1: 10.0.2.3
+            hadoop-slave2: 10.0.2.4
+            hadoop-slave3: 10.0.2.5
+        command: "/etc/bootstrap.sh $$ /bin/bash"
+
+    hadoop-slave3:
+        image: leibniz21c/ubuntu-hadoop:2.7.7
+        container_name: hadoop-slave3
+        hostname: hadoop-slave3
+        stdin_open: true    # docker run -i
+        tty: true           # docker run -t
+        networks: 
+            hadoop-cluster :
+                ipv4_address: 10.0.2.5
+        extra_hosts:
+            hadoop-master: 10.0.2.2
+            hadoop-slave1: 10.0.2.3
+            hadoop-slave2: 10.0.2.4
+            hadoop-slave3: 10.0.2.5
+        command: "/etc/bootstrap.sh $$ /bin/bash"
+
+networks: 
+    hadoop-cluster:
+        name: hadoop-cluster
+        ipam: 
+            driver: default
+            config: 
+                - subnet: 10.0.2.0/24

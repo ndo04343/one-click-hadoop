@@ -1,7 +1,7 @@
 #!/bin/bash
 #       
 #       Hadoop slave node setting script
-#       2021.08.05      leibniz21c
+#
 #       Usage :
 #       $ chmod +x slave_linker.sh
 #       $ ./slave_linker.sh [NUMBER_OF_SLAVE_NODES]

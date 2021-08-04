@@ -1,10 +1,16 @@
-FROM kmubigdata/ubuntu-1604
-MAINTAINER kimjeongchul
+FROM ubuntu:18.04
 
 USER root
 
 # install dev tools
-RUN apt-get install -y curl openssh-server openssh-client rsync wget
+RUN apt-get update \
+    && apt-get install -y \
+    curl \
+    openssh-server \
+    openssh-client \
+    rsync \
+    wget \
+    nano
 
 # passwordless ssh
 RUN rm -f /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key /root/.ssh/id_rsa
@@ -28,11 +34,14 @@ RUN rm -rf /usr/bin/java
 RUN ln -s $JAVA_HOME/bin/java /usr/bin/java
 
 
-# hadoop
-RUN wget https://archive.apache.org/dist/hadoop/core/hadoop-3.1.1/hadoop-3.1.1.tar.gz
-RUN tar -xvzf hadoop-3.1.1.tar.gz -C /usr/local/
-RUN cd /usr/local && ln -s ./hadoop-3.1.1 hadoop
-RUN rm hadoop-3.1.1.tar.gz
+# Modified
+# I'm going to change this part. 
+# Because port 50070 was changed to 9870 in Hadoop version 3.
+# And I need to use version 2.7.7
+RUN wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/hadoop-2.7.7.tar.gz
+RUN tar -xvzf hadoop-2.7.7.tar.gz -C /usr/local/
+RUN cd /usr/local && ln -s ./hadoop-2.7.7 hadoop
+RUN rm hadoop-2.7.7.tar.gz
 
 # hadoop env
 ENV HADOOP_HOME /usr/local/hadoop

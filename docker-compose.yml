@@ -9,9 +9,9 @@
 version: "3"
 
 services: 
-    hadoop-master:
+    master:
         image: leibniz21c/ubuntu-hadoop:2.7.7
-        container_name: hadoop-master
+        container_name: master
         hostname: master
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
@@ -35,22 +35,22 @@ services:
             - "60017:49707"
             - "2122:2122"
         depends_on: 
-            - hadoop-slave1
-            - hadoop-slave2
-            - hadoop-slave3
+            - slave1
+            - slave2
+            - slave3
         networks: 
             hadoop-cluster :
                 ipv4_address: 10.0.2.2
         extra_hosts:
-            hadoop-master: 10.0.2.2
-            hadoop-slave1: 10.0.2.3
-            hadoop-slave2: 10.0.2.4
-            hadoop-slave3: 10.0.2.5
+            master: 10.0.2.2
+            slave1: 10.0.2.3
+            slave2: 10.0.2.4
+            slave3: 10.0.2.5
         command: "/bin/bash"
 
-    hadoop-slave1:
+    slave1:
         image: leibniz21c/ubuntu-hadoop:2.7.7
-        container_name: hadoop-slave1
+        container_name: slave1
         hostname: slave1
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
@@ -58,15 +58,15 @@ services:
             hadoop-cluster :
                 ipv4_address: 10.0.2.3
         extra_hosts:
-            hadoop-master: 10.0.2.2
-            hadoop-slave1: 10.0.2.3
-            hadoop-slave2: 10.0.2.4
-            hadoop-slave3: 10.0.2.5
+            master: 10.0.2.2
+            slave1: 10.0.2.3
+            slave2: 10.0.2.4
+            slave3: 10.0.2.5
         command: "/bin/bash"
 
-    hadoop-slave2:
+    slave2:
         image: leibniz21c/ubuntu-hadoop:2.7.7
-        container_name: hadoop-slave2
+        container_name: slave2
         hostname: slave2
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
@@ -74,15 +74,15 @@ services:
             hadoop-cluster :
                 ipv4_address: 10.0.2.4
         extra_hosts:
-            hadoop-master: 10.0.2.2
-            hadoop-slave1: 10.0.2.3
-            hadoop-slave2: 10.0.2.4
-            hadoop-slave3: 10.0.2.5
+            master: 10.0.2.2
+            slave1: 10.0.2.3
+            slave2: 10.0.2.4
+            slave3: 10.0.2.5
         command: "/bin/bash"
 
-    hadoop-slave3:
+    slave3:
         image: leibniz21c/ubuntu-hadoop:2.7.7
-        container_name: hadoop-slave3
+        container_name: slave3
         hostname: slave3
         stdin_open: true    # docker run -i
         tty: true           # docker run -t
@@ -90,10 +90,10 @@ services:
             hadoop-cluster :
                 ipv4_address: 10.0.2.5
         extra_hosts:
-            hadoop-master: 10.0.2.2
-            hadoop-slave1: 10.0.2.3
-            hadoop-slave2: 10.0.2.4
-            hadoop-slave3: 10.0.2.5
+            master: 10.0.2.2
+            slave1: 10.0.2.3
+            slave2: 10.0.2.4
+            slave3: 10.0.2.5
         command: "/bin/bash"
 
 networks: 

@@ -50,6 +50,7 @@ ENV HADOOP_HDFS_HOME $HADOOP_HOME
 ENV HADOOP_MAPRED_HOME $HADOOP_HOME
 ENV HADOOP_YARN_HOME $HADOOP_HOME
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 RUN echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh && \
@@ -93,6 +94,9 @@ RUN echo "Port 2122" >> /etc/ssh/sshd_config
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+# MapReduce env
+RUN echo "export HADOOP_CLASSPATH=$(hadoop classpath)"
 
 # HDFS ports
 EXPOSE 50010 50020 50070 50075 50090 8020 9000
